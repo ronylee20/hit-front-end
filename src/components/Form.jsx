@@ -1,64 +1,55 @@
-import React, { useState } from "react";
-import { useDatabase } from "./database";
+import React, { useState } from 'react';
+import Database from './Database'; // Import the Database component
 
-export default function Form() {
-  // Create state variables to store the form data
-  const [sum, setSum] = useState("");
-  const [description, setDescription] = useState("");
-  const [name, setName] = useState("");
-  const { addCostItem } = useDatabase();  // Use the addCostItem function from the database module
+const Form = () => {
+  // State for the form input values
+  const [formData, setFormData] = useState({
+    //time will be timestapm
+    cost: '',
+    name: '',
+    description: '',
+    time: (new Date()).getTime()
+  });
 
-  // Create an event handler for the button click
-  const handleClick = () => {
-    // Use the addCostItem function to add a new cost item to the database
-    addCostItem({ sum, description, name });
-    console.log({ sum, description, name });
-    // Reset the form fields
-    setSum("");
-    setDescription("");
-    setName("");
+  // Function to handle input changes
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  // Function to handle form submission
+  const handleSubmit = () => {
+    console.log(formData);
+    // Add the new expense to the database
+    Database.addExpense(formData);
+    // Reset the form
+    setFormData({
+      cost: '',
+      name: '',
+      description: '',
+      time: (new Date()).getTime()
+    });
+    const temp = Database.getExpenses();
+    console.log('----------');
+    console.log(temp);
   };
 
   return (
-    <div>
-      {/* Sum field */}
-      <label>
-        <br />
-        Sum:
-        <input
-          type="number"
-          value={sum}
-          onChange={(e) => setSum(e.target.value)}
-        />
-      </label>
-
-      {/* Description field */}
-      <label>
+    <form>
+      <label htmlFor="cost">Cost:</label>
+      <input type="number" name="cost" value={formData.cost} onChange={handleChange} />
       <br />
-
-        Description:
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </label>
-
-      {/* Name field */}
-      <label>
+      <label htmlFor="name">Name:</label>
+      <input type="text" name="name" value={formData.name} onChange={handleChange} />
       <br />
-        Name:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-      </label>
-
-      {/* Button to submit the form */}
+      <label htmlFor="description">Description:</label>
+      <input type="text" name="description" value={formData.description} onChange={handleChange} />
       <br />
-      <button onClick={handleClick}>Submit</button>
-    </div>
+      <button type="button" onClick={handleSubmit}>Submit</button>
+    </form>
   );
-}
+};
+
+export default Form;

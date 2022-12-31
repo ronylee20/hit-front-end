@@ -1,14 +1,13 @@
 import React from 'react';
-import Total from './components/Total';
 import Form from './components/Form';
-import { useEffect } from 'react';
+import ListOfExpenses from './components/ListOfExpenses';
 
 const App = () => {
   return (
     <div>
       <h1>Expenses</h1>
-      <Total />
       <Form />
+      <ListOfExpenses />
     </div>
   );
 };
