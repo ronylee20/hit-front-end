@@ -1,8 +1,9 @@
-import React from 'react';
-import Form from './components/Form';
-import ListOfExpenses from './components/ListOfExpenses';
+import React from "react";
+import Form from "./components/Form";
+import ListOfExpenses from "./components/ListOfExpenses";
 
 const App = () => {
+  const [expenses, setExpenses] = useState();
   return (
     <div>
       <h1>Expenses</h1>
