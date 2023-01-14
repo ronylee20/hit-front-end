@@ -119,7 +119,7 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
           return (
             <div key={index}>
               <p>
-                {expense.name}: {expense.cost}
+                {expense.name}: {expense.cost}: {expense.description}
               </p>
               <button onClick={() => setEditedIndex(index)}>Edit</button>
               <button onClick={() => handleDelete(index)}>&times;</button>
