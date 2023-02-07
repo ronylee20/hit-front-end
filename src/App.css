@@ -1,0 +1,76 @@
+h1 {
+  color: rgb(189, 189, 222);
+  text-align: center;
+}
+
+div {
+  padding: 10px;
+  align-items: center;
+  background-image: inherit;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ListOfExpenses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(189, 189, 222);
+}
+button {
+  background-color: rgb(204, 204, 228);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+h2 {
+  color: rgb(189, 189, 222);
+  text-align: center;
+}
+
+.expense {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  background-color: #cab2cb;
+  line-height: 3;
+}
+
+.expense p {
+  margin: 0;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.expense button {
+  border: none;
+  padding: 5px 10px;
+  background-color: #ac95d0;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.5;
+}
+.total-expenses {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
