@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRef } from "react";
-import Database from "./database";
+import Database from "./Database";
 import DateRange from "./DateRange";
 
 const today = new Date();

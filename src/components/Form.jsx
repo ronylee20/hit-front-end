@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Database from "./database"; // Import the Database component
+import Database from "./Database"; // Import the Database component
 
 const Form = ({ setExpenses }) => {
   // State for the form input values
@@ -23,7 +23,7 @@ const Form = ({ setExpenses }) => {
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log("form", formData);
     // Add the new expense to the database
     Database.addExpense(formData);
     setExpenses((prevExpenses) => [...prevExpenses, formData]);
@@ -68,7 +68,7 @@ const Form = ({ setExpenses }) => {
       <label htmlFor="date">date:</label>
       <input
         type="date"
-        name="date"
+        name="time"
         value={formData.date}
         onChange={handleChange}
       />

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-const today = new Date();
 const DateRange = ({ start, end, setDateRange }) => {
   // Function to handle start date changes
   const handleStartDateChange = (event) => {
