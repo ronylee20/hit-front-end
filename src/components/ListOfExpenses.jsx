@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRef } from "react";
-import Database from "./Database";
+import Database from "./database";
 import DateRange from "./DateRange";
 
 const today = new Date();
@@ -9,6 +9,7 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
   const nameRef = useRef();
   const costRef = useRef();
   const descriptionRef = useRef();
+  const dateRef = useRef();
 
   // State for the list of expenses
   // State for the start and end dates of the date range to display
@@ -44,7 +45,7 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
       name: nameRef.current.value,
       cost: costRef.current.value,
       description: descriptionRef.current.value,
-      time: expenses[index].time,
+      time: dateRef.current.value,
     };
 
     Database.updateExpense(index, updatedCost);
@@ -63,7 +64,7 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
   // Function to handle changes to the date range
   const handleDateRangeChange = (dateRange) => {
     console.log("dateRange: ", dateRange);
-    setDateRange(dateRange.getTime());
+    setDateRange(dateRange);
   };
 
   // Function to handle expense selection
@@ -85,16 +86,19 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
   return (
     <div>
       <h2>List of Expenses</h2>
-      <DateRange
-        start={dateRange.start}
-        end={dateRange.end}
-        setDateRange={setDateRange}
-      />
+      <div className="center">
+        <DateRange
+          start={dateRange.start}
+          end={dateRange.end}
+          setDateRange={setDateRange}
+        />
+      </div>
       {expenses
-        .filter(
-          (expense) =>
-            expense.time >= dateRange.start && expense.time <= dateRange.end
-        )
+        .filter((expense) => {
+          const expenseDate = new Date(expense.time);
+          return expenseDate >= dateRange.start && expenseDate <= dateRange.end;
+        })
+
         .map((expense, index) => {
           console.log(expense);
           if (index === editedIndex) {
@@ -111,14 +115,15 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
                   type="text"
                   defaultValue={expense.description}
                 />
+                <input ref={dateRef} type="date" defaultValue={expense.Date} />
                 <button onClick={() => handleUpdate(index)}>Update</button>
                 <button onClick={() => setEditedIndex(-1)}>Cancel</button>
               </div>
             );
           }
           return (
-            <div key={index}>
-              <p>
+            <div key={index} className="expense container">
+              <p className="expense">
                 {expense.name}: {expense.cost}: {expense.description}
               </p>
               <button onClick={() => setEditedIndex(index)}>Edit</button>
@@ -126,10 +131,12 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
             </div>
           );
         })}
-      Total expenses:{" "}
-      {expenses.reduce((total, expense) => total + Number(expense.cost), 0)}$
-      <button onClick={handleDeleteAll}>Delete All</button>
-      <button onClick={date_test}>Date Test</button>
+      <div className="total-expenses">
+        Total expenses:{" "}
+        {expenses.reduce((total, expense) => total + Number(expense.cost), 0)}$
+        <button onClick={handleDeleteAll}>Delete All</button>
+        <button onClick={date_test}>Date Test</button>
+      </div>
     </div>
   );
 };

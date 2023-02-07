@@ -1,7 +1,7 @@
-//rony levi
-// serg
+//rony levi 206918419
+
 import React, { useEffect, useState } from "react";
-import Database from "./components/Database";
+import Database from "./components/database";
 import Form from "./components/Form";
 import ListOfExpenses from "./components/ListOfExpenses";
 

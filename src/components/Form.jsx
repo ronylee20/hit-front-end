@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Database from "./Database"; // Import the Database component
+import Database from "./database"; // Import the Database component
 
 const Form = ({ setExpenses }) => {
   // State for the form input values
@@ -8,6 +8,7 @@ const Form = ({ setExpenses }) => {
     cost: "",
     name: "",
     description: "",
+    date: "",
     time: new Date().getTime(),
   });
 
@@ -61,6 +62,14 @@ const Form = ({ setExpenses }) => {
         type="text"
         name="description"
         value={formData.description}
+        onChange={handleChange}
+      />
+      <br />
+      <label htmlFor="date">date:</label>
+      <input
+        type="date"
+        name="date"
+        value={formData.date}
         onChange={handleChange}
       />
       <br />
