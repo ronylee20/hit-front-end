@@ -8,7 +8,6 @@ const Form = ({ setExpenses }) => {
     cost: "",
     name: "",
     description: "",
-    date: "",
     time: new Date().getTime(),
   });
 
@@ -32,7 +31,7 @@ const Form = ({ setExpenses }) => {
       cost: "",
       name: "",
       description: "",
-      time: new Date().getTime(),
+      time: "",
     });
     const temp = Database.getExpenses();
     console.log("----------");

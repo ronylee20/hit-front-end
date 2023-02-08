@@ -135,7 +135,6 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
         Total expenses:{" "}
         {expenses.reduce((total, expense) => total + Number(expense.cost), 0)}$
         <button onClick={handleDeleteAll}>Delete All</button>
-        <button onClick={date_test}>Date Test</button>
       </div>
     </div>
   );
