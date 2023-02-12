@@ -8,8 +8,7 @@ const Form = ({ setExpenses }) => {
     cost: "",
     name: "",
     description: "",
-    date: "",
-    time: new Date().getTime(),
+    time: "",
   });
 
   // Function to handle input changes
@@ -20,24 +19,49 @@ const Form = ({ setExpenses }) => {
     });
   };
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form", formData);
-    // Add the new expense to the database
-    Database.addExpense(formData);
-    setExpenses((prevExpenses) => [...prevExpenses, formData]);
-    // Reset the form
-    setFormData({
-      cost: "",
-      name: "",
-      description: "",
-      time: new Date().getTime(),
-    });
-    const temp = Database.getExpenses();
-    console.log("----------");
-    console.log(temp);
+    try {
+      await Database.addExpense(formData);
+      console.log("formData", formData)
+      setExpenses((prevExpenses) => [...prevExpenses, formData]);
+      // Reset the form
+      setFormData({
+        cost: "",
+        name: "",
+        description: "",
+        time: "",
+      });
+    } catch (e) {
+      console.log("error handling")
+    }
   };
+
+  // Function to handle form submission
+  // const handleSubmit = async (e) => {
+  //   try {
+
+  //     console.log("form", formData);
+  //     // Add the new expense to the database
+  //     await Database.addExpense(formData);
+
+
+  //     const temp = Database.getExpenses();
+  //     // console.log("----------");
+  //     // console.log(temp);
+  //   }
+  //   catch (e) {
+  //     console.log(e)
+  //   } finally {
+  //     // Reset the form
+  //     setFormData({
+  //       cost: "",
+  //       name: "",
+  //       description: "",
+  //       time: "",
+  //     });
+  //   }
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -71,9 +95,10 @@ const Form = ({ setExpenses }) => {
         name="time"
         value={formData.date}
         onChange={handleChange}
+        required
       />
       <br />
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={!formData.time}>Submit</button>
     </form>
   );
 };
