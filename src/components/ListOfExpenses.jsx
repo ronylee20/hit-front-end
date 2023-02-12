@@ -10,6 +10,7 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
   const costRef = useRef();
   const descriptionRef = useRef();
   const dateRef = useRef();
+  
 
   // State for the list of expenses
   // State for the start and end dates of the date range to display
@@ -24,46 +25,53 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
   // Use the useEffect hook to load the expenses from the local storage when the component mounts
   useEffect(() => {
     const storedExpenses = Database.getExpensesByDate(dateRange);
-    console.log("storedExpenses: ", storedExpenses);
+    // console.log("storedExpenses: ", storedExpenses);
     if (typeof storedExpenses === "string") {
-      console.log("storedExpenses: ", JSON.parse(storedExpenses));
+      // console.log("storedExpenses: ", JSON.parse(storedExpenses));
 
       setExpenses(JSON.parse(storedExpenses));
     }
   }, []);
 
   // Function to delete an expense
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
     // Delete the expense from the database
-    Database.deleteExpense(index);
+    await Database.deleteExpense(index);
     // Update the list of expenses in state with the updated list from the database
-    setExpenses(Database.getExpensesByDate(dateRange));
+    const updatedExpenses = await Database.getExpensesByDate(dateRange);
+    setExpenses(prevExpenses => prevExpenses.filter((expense, i) => i !== index));
   };
+  
+  
 
-  const handleUpdate = (index) => {
+  const handleUpdate = async (index) => {
     const updatedCost = {
       name: nameRef.current.value,
       cost: costRef.current.value,
       description: descriptionRef.current.value,
       time: dateRef.current.value,
     };
-
-    Database.updateExpense(index, updatedCost);
-    setExpenses(Database.getExpensesByDate(dateRange));
+  
+    await Database.updateExpense(index, updatedCost);
+    const expenses = await Database.getExpensesByDate(dateRange);
+    setExpenses(expenses);
     setEditedIndex(-1);
   };
+  
 
   // Function to delete all expenses
-  const handleDeleteAll = () => {
+  const handleDeleteAll = async () => {
     // Delete all expenses from the database
-    Database.deleteAllExpenses();
+    await Database.deleteAllExpenses();
     // Update the list of expenses in state with the updated list from the database
-    setExpenses(Database.getExpensesByDate(dateRange));
+    const expenses = await Database.getExpensesByDate(dateRange);
+    setExpenses(expenses);
   };
+  
 
   // Function to handle changes to the date range
   const handleDateRangeChange = (dateRange) => {
-    console.log("dateRange: ", dateRange);
+    // console.log("dateRange: ", dateRange);
     setDateRange(dateRange);
   };
 
@@ -77,12 +85,8 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
     }
   };
 
-  const date_test = () => {
-    const allEx = Database.getExpensesByDate(dateRange);
-    console.log("all expenses: ", allEx);
-    console.log("current date: ", dateRange.start);
-    console.log("current date: ", dateRange.end);
-  };
+  console.log("expenses", expenses)
+
   return (
     <div>
       <h2>List of Expenses</h2>
@@ -100,7 +104,6 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
         })
 
         .map((expense, index) => {
-          console.log(expense);
           if (index === editedIndex) {
             return (
               <div id="edited" key={index}>
