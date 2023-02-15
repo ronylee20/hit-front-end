@@ -23,17 +23,16 @@ const Form = ({ setExpenses }) => {
     e.preventDefault();
     try {
       await Database.addExpense(formData);
-      console.log("formData", formData)
       setExpenses((prevExpenses) => [...prevExpenses, formData]);
-      // Reset the form
+    } catch (e) {
+      console.log("error handling")
+    } finally {
       setFormData({
         cost: "",
         name: "",
         description: "",
         time: "",
       });
-    } catch (e) {
-      console.log("error handling")
     }
   };
 
@@ -93,7 +92,7 @@ const Form = ({ setExpenses }) => {
       <input
         type="date"
         name="time"
-        value={formData.date}
+        value={formData.time}
         onChange={handleChange}
         required
       />
