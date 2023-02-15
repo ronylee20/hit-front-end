@@ -66,7 +66,7 @@ console.log("list of expenses", expenses);
   };
   
 
-  // Function to delete all expenses
+  // Function to delete all expenses test
   const handleDeleteAll = async () => {
     // Delete all expenses from the database
     await Database.deleteAllExpenses();
@@ -75,22 +75,6 @@ console.log("list of expenses", expenses);
     setExpenses(expenses);
   };
   
-
-  // Function to handle changes to the date range
-  const handleDateRangeChange = (dateRange) => {
-    // console.log("dateRange: ", dateRange);
-    setDateRange(dateRange);
-  };
-
-  // Function to handle expense selection
-  const handleSelect = (index) => {
-    // Add or remove the expense from the selected expenses list
-    if (selectedExpenses.includes(index)) {
-      setSelectedExpenses(selectedExpenses.filter((i) => i !== index));
-    } else {
-      setSelectedExpenses([...selectedExpenses, index]);
-    }
-  };
 
   return (
     <div>
