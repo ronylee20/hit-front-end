@@ -42,6 +42,7 @@ const Database = {
       const storedExpenses = localStorage.getItem("expenses");
       if (storedExpenses) {
         const expenses = JSON.parse(storedExpenses);
+        console.log("stored exp", expenses)
         // Update the expense at the given index
         expenses[index] = updatedExpense;
         // Update the local storage with the new list of expenses

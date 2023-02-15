@@ -11,7 +11,7 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
   const descriptionRef = useRef();
   const dateRef = useRef();
   
-
+console.log("list of expenses", expenses);
   // State for the list of expenses
   // State for the start and end dates of the date range to display
   const [dateRange, setDateRange] = useState({
@@ -45,6 +45,9 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
   
 
   const handleUpdate = async (index) => {
+
+    console.log(index)
+
     const updatedCost = {
       name: nameRef.current.value,
       cost: costRef.current.value,
@@ -53,13 +56,17 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
     };
   
     await Database.updateExpense(index, updatedCost);
-    const expenses = await Database.getExpensesByDate(dateRange);
+
+    const expenses = await Database.getExpenses();
+    
+    console.log("handle update", expenses);
+
     setExpenses(expenses);
     setEditedIndex(-1);
   };
   
 
-  // Function to delete all expenses
+  // Function to delete all expenses test
   const handleDeleteAll = async () => {
     // Delete all expenses from the database
     await Database.deleteAllExpenses();
@@ -68,24 +75,6 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
     setExpenses(expenses);
   };
   
-
-  // Function to handle changes to the date range
-  const handleDateRangeChange = (dateRange) => {
-    // console.log("dateRange: ", dateRange);
-    setDateRange(dateRange);
-  };
-
-  // Function to handle expense selection
-  const handleSelect = (index) => {
-    // Add or remove the expense from the selected expenses list
-    if (selectedExpenses.includes(index)) {
-      setSelectedExpenses(selectedExpenses.filter((i) => i !== index));
-    } else {
-      setSelectedExpenses([...selectedExpenses, index]);
-    }
-  };
-
-  console.log("expenses", expenses)
 
   return (
     <div>
@@ -118,7 +107,10 @@ const ListOfExpenses = ({ expenses, setExpenses }) => {
                   type="text"
                   defaultValue={expense.description}
                 />
-                <input ref={dateRef} type="date" defaultValue={expense.Date} />
+                <input ref={dateRef}
+                  type="date" 
+                  defaultValue={expense.time}
+                />
                 <button onClick={() => handleUpdate(index)}>Update</button>
                 <button onClick={() => setEditedIndex(-1)}>Cancel</button>
               </div>

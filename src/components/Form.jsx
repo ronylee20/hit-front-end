@@ -23,45 +23,19 @@ const Form = ({ setExpenses }) => {
     e.preventDefault();
     try {
       await Database.addExpense(formData);
-      console.log("formData", formData)
       setExpenses((prevExpenses) => [...prevExpenses, formData]);
-      // Reset the form
+    } catch (e) {
+      console.log("error handling")
+    } finally {
       setFormData({
         cost: "",
         name: "",
         description: "",
         time: "",
       });
-    } catch (e) {
-      console.log("error handling")
     }
   };
 
-  // Function to handle form submission
-  // const handleSubmit = async (e) => {
-  //   try {
-
-  //     console.log("form", formData);
-  //     // Add the new expense to the database
-  //     await Database.addExpense(formData);
-
-
-  //     const temp = Database.getExpenses();
-  //     // console.log("----------");
-  //     // console.log(temp);
-  //   }
-  //   catch (e) {
-  //     console.log(e)
-  //   } finally {
-  //     // Reset the form
-  //     setFormData({
-  //       cost: "",
-  //       name: "",
-  //       description: "",
-  //       time: "",
-  //     });
-  //   }
-  // };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -93,7 +67,7 @@ const Form = ({ setExpenses }) => {
       <input
         type="date"
         name="time"
-        value={formData.date}
+        value={formData.time}
         onChange={handleChange}
         required
       />
