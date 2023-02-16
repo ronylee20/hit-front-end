@@ -1,10 +1,13 @@
+/*
+Authors: Sergey Aremieve ID: 320689789, Rony Levy ID: 206918419
+*/
+
 import React, { useState } from "react";
 import Database from "./Database"; // Import the Database component
 
 const Form = ({ setExpenses }) => {
-  // State for the form input values
+  // State to store the form input values
   const [formData, setFormData] = useState({
-    //time will be timestapm
     cost: "",
     name: "",
     description: "",
@@ -22,11 +25,14 @@ const Form = ({ setExpenses }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Call the addExpense function from the imported Database component
       await Database.addExpense(formData);
+      // Update the expenses state with the new expense
       setExpenses((prevExpenses) => [...prevExpenses, formData]);
     } catch (e) {
-      console.log("error handling")
+      console.log("error handling");
     } finally {
+      // Reset the form input values
       setFormData({
         cost: "",
         name: "",
@@ -35,7 +41,6 @@ const Form = ({ setExpenses }) => {
       });
     }
   };
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -72,7 +77,9 @@ const Form = ({ setExpenses }) => {
         required
       />
       <br />
-      <button type="submit" disabled={!formData.time}>Submit</button>
+      <button type="submit" disabled={!formData.time}>
+        Submit
+      </button>
     </form>
   );
 };

@@ -1,9 +1,12 @@
+/*
+Authors: Sergey Aremieve ID: 320689789, Rony Levy ID: 206918419
+*/
 import React, { useState } from "react";
 
+// Component for rendering the date range picker
 const DateRange = ({ start, end, setDateRange }) => {
-  // Function to handle start date changes
+  // Function to handle changes to the start date
   const handleStartDateChange = (event) => {
-    // Convert the date string to a Date object
     console.log("start", new Date(event.target.value).getTime());
     const date = new Date(event.target.value);
     setDateRange((prevDates) => ({
@@ -14,8 +17,8 @@ const DateRange = ({ start, end, setDateRange }) => {
 
   // Function to handle end date changes
   const handleEndDateChange = (event) => {
-    // Convert the date string to a Date object
     console.log("end", new Date(event.target.value).getTime());
+    // Convert the date string to a Date object
     const date = new Date(event.target.value);
     setDateRange((prevDates) => ({
       ...prevDates,
@@ -23,9 +26,8 @@ const DateRange = ({ start, end, setDateRange }) => {
     }));
   };
 
-  // Function to parse and format the date string for the input field
+  // Function to format the date for display in the input field
   const formatDate = (date) => {
-    // Format the date using the toISOString method and the substr method
     return new Date(date).toISOString().substr(0, 10);
   };
 

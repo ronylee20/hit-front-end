@@ -1,3 +1,6 @@
+/*
+Authors: Sergey Aremieve ID: 320689789, Rony Levy ID: 206918419
+*/
 
 const Database = {
   // Function to add an expense to the database
@@ -7,8 +10,10 @@ const Database = {
       const storedExpenses = localStorage.getItem("expenses");
       let expenses;
       if (storedExpenses) {
+        // If expenses are stored in the local storage, parse the JSON string
         expenses = JSON.parse(storedExpenses);
       } else {
+        // If expenses are not stored in the local storage, create an empty array
         expenses = [];
       }
       // Add the new expense to the list
@@ -42,7 +47,7 @@ const Database = {
       const storedExpenses = localStorage.getItem("expenses");
       if (storedExpenses) {
         const expenses = JSON.parse(storedExpenses);
-        console.log("stored exp", expenses)
+        console.log("stored exp", expenses);
         // Update the expense at the given index
         expenses[index] = updatedExpense;
         // Update the local storage with the new list of expenses
@@ -92,4 +97,3 @@ const Database = {
 };
 
 export default Database;
-
